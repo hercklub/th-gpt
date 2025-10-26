@@ -48,12 +48,28 @@ def load_hf_tokenizer(model_name_or_path, fast_tokenizer=True):
         model_json = os.path.join(model_name_or_path, "config.json")
         if os.path.exists(model_json):
             model_json_file = json.load(open(model_json))
-            model_name = model_json_file["_name_or_path"]
+            model_name = model_json_file.get("_name_or_path", model_name_or_path)
             tokenizer = AutoTokenizer.from_pretrained(model_name,
-                                                      fast_tokenizer=True)
+                                                      fast_tokenizer=fast_tokenizer,
+                                                      trust_remote_code=True)
+        else:
+            tokenizer = AutoTokenizer.from_pretrained(model_name_or_path,
+                                                      fast_tokenizer=fast_tokenizer,
+                                                      trust_remote_code=True)
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path,
-                                                  fast_tokenizer=True)
+                                                  fast_tokenizer=fast_tokenizer,
+                                                  trust_remote_code=True)
+
+    # Handle special tokens for different model architectures
+    # LLaMA models may not have a pad token by default
+    if tokenizer.pad_token is None:
+        if tokenizer.eos_token is not None:
+            tokenizer.pad_token = tokenizer.eos_token
+        else:
+            # Fallback for models without eos_token
+            tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+
     return tokenizer
 
 

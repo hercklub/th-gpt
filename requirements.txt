@@ -1,0 +1,36 @@
+# Core dependencies for PokerGPT Training with LLaMA 3.1 8B
+# Install with: pip install -r requirements.txt
+
+# PyTorch (install from appropriate source for your CUDA version)
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# DeepSpeed for distributed training
+deepspeed>=0.12.0
+
+# Transformers and HuggingFace ecosystem
+transformers>=4.35.0
+accelerate>=0.24.0
+datasets>=2.14.0
+evaluate>=0.4.0
+huggingface-hub>=0.19.0
+
+# Tokenization
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Utilities
+numpy>=1.24.0
+pandas>=2.0.0
+tqdm>=4.65.0
+
+# Logging and monitoring
+wandb>=0.15.0
+tensorboard>=2.14.0
+
+# Build optimization
+ninja>=1.11.0
+
+# Optional: for better performance
+triton>=2.0.0
