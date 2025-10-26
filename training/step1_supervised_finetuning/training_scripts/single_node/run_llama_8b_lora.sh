@@ -34,7 +34,6 @@ deepspeed --master_port 12345 main.py \
    --lora_dim 128 \
    --lora_module_name model.layers. \
    --only_optimize_lora \
-   --gradient_checkpointing \
    --zero_stage $ZERO_STAGE \
    --deepspeed \
    --output_dir $OUTPUT \

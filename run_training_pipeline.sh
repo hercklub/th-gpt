@@ -13,7 +13,7 @@ BASE_DIR=$(pwd)
 ZERO_STAGE=2  # ZeRO optimization stage (0, 1, 2, or 3)
 
 # Output directories
-STEP1_OUTPUT="${BASE_DIR}/training/step1_supervised_finetuning/output_llama_8b_sft_lora"
+STEP1_OUTPUT="${BASE_DIR}/training/step1_supervised_finetuning/output_llama_8b_sft"
 STEP2_OUTPUT="${BASE_DIR}/training/step2_reward_model_finetuning/output_llama_8b_reward"
 STEP3_OUTPUT="${BASE_DIR}/training/step3_rlhf_finetuning/output_llama_8b_rlhf"
 
@@ -30,10 +30,10 @@ else
     if [ "$RUN_STEP1" = true ]; then
         echo ""
         echo "================================================"
-        echo "Step 1: Supervised Fine-tuning (SFT)"
+        echo "Step 1: Supervised Fine-tuning (SFT) - Full Fine-tuning"
         echo "================================================"
         cd "${BASE_DIR}/training/step1_supervised_finetuning"
-        bash training_scripts/single_node/run_llama_8b_lora.sh $STEP1_OUTPUT $ZERO_STAGE
+        bash training_scripts/single_node/run_llama_8b.sh $STEP1_OUTPUT $ZERO_STAGE
         echo "Step 1 complete! Model saved to: $STEP1_OUTPUT"
     fi
 fi
